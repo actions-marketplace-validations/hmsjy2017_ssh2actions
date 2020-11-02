@@ -70,6 +70,12 @@ screen -dmS ngrok \
     --authtoken "${NGROK_TOKEN}" \
     --region "${NGROK_REGION:-us}"
 
+echo -e "${INFO} Start ngrok proxy for VNC port..."
+screen -dmS ngrok_vnc \
+    ngrok tcp 5900 \
+    --log "${LOG_FILE}" \
+    --authtoken "${NGROK_TOKEN}" \
+    --region "${NGROK_REGION:-us}"
 while ((${SECONDS_LEFT:=10} > 0)); do
     echo -e "${INFO} Please wait ${SECONDS_LEFT}s ..."
     sleep 1
