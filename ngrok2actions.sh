@@ -63,6 +63,12 @@ if [[ -n "${SSH_PASSWORD}" ]]; then
     echo -e "${SSH_PASSWORD}\n${SSH_PASSWORD}" | sudo passwd "${USER}"
 fi
 
+echo -e "${INFO} Start ngrok proxy for VNC port..."
+screen -dmS vnc \
+    ngrok tcp 5900 \
+    --authtoken "${NGROK_TOKEN}" \
+    --region "${NGROK_REGION:-us}"
+
 echo -e "${INFO} Start ngrok proxy for SSH port..."
 screen -dmS ngrok \
     ngrok tcp 22 \
@@ -81,14 +87,6 @@ ERRORS_LOG=$(grep "command failed" ${LOG_FILE})
 if [[ -e "${LOG_FILE}" && -z "${ERRORS_LOG}" ]]; then
     SSH_CMD="$(grep -oE "tcp://(.+)" ${LOG_FILE} | sed "s/tcp:\/\//ssh ${USER}@/" | sed "s/:/ -p /")"
     MSG="
-
-echo -e "${INFO} Start ngrok proxy for VNC port..."
-sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -off -restart -agent -privs -all -allowAccessFor -allUsers
-screen -dmS ngrok_vnc \
-    ngrok tcp 5900 \
-    --authtoken "${NGROK_TOKEN}" \
-    --region "${NGROK_REGION:-us
-
 *GitHub Actions - ngrok session info:*
 
 ⚡ *CLI:*
