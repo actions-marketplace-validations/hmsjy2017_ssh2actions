@@ -86,13 +86,8 @@ echo -e "${INFO} Start ngrok proxy for VNC port..."
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -off -restart -agent -privs -all -allowAccessFor -allUsers
 screen -dmS ngrok_vnc \
     ngrok tcp 5900 \
-    --log "${LOG_FILE}" \
     --authtoken "${NGROK_TOKEN}" \
-    --region "${NGROK_REGION:-us}"
-
-if [[ -e "${LOG_FILE}" && -z "${ERRORS_LOG}" ]]; then
-    SSH_CMD="$(grep -oE "tcp://(.+)" ${LOG_FILE} | sed "s/tcp:\/\//${USER}@/" | sed "s/:/ :/")"
-    MSG="
+    --region "${NGROK_REGION:-us
 
 *GitHub Actions - ngrok session info:*
 
