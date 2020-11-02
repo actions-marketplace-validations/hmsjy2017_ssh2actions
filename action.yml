@@ -1,6 +1,6 @@
 name: 'SSH to GitHub Actions (GUI)'
 author: 'hmsjy2017'
-description: 'Connect to GitHub Actions VM via SSH for interactive debugging'
+description: 'Connect to GitHub Actions VM via SSH for interactive debugging with GUI'
 inputs:
   mode:
     description: 'choose tmate or ngrok mode'
