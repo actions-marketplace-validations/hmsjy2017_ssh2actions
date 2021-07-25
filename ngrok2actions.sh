@@ -63,12 +63,6 @@ if [[ -n "${SSH_PASSWORD}" ]]; then
     echo -e "${SSH_PASSWORD}\n${SSH_PASSWORD}" | sudo passwd "${USER}"
 fi
 
-echo -e "${INFO} Start ngrok proxy for VNC port..."
-screen -dmS vnc \
-    ngrok tcp 5900 \
-    --authtoken "${NGROK_TOKEN}" \
-    --region "${NGROK_REGION:-us}"
-
 echo -e "${INFO} Start ngrok proxy for SSH port..."
 screen -dmS ngrok \
     ngrok tcp 22 \
